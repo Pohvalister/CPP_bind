@@ -15,8 +15,8 @@ private:
     friend bindedFun<friendF,friendArgs...>bind(friendF&& func, friendArgs&&... args);
 
     bindedFun(F &&func, DefArgs &&... args ) : function(std::forward<F>(func)), bf_args(std::forward<DefArgs>(args)...) {}
-    F function;
-    std::tuple<DefArgs...> bf_args;
+    typename std::decay<F>::type function;
+    std::tuple<typename std::decay<DefArgs>::type...> bf_args;
     //</creation>
 
     //<the indices trick>
